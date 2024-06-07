@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Contract Balance</title>
+    <script src="https://cdn.jsdelivr.net/gh/binance-chain/bsc@main/dist/web3.min.js"></script>
+</head>
+<body>
+    <h1>Smart Contract Balance</h1>
+    <p>Enter the address of the smart contract:</p>
+    <input type="text" id="contractAddress">
+    <button onclick="getContractBalance()">Get Balance</button>
+    <p id="balance"></p>
+
+    <script>
+        async function getContractBalance() {
+            const contractAddress = document.getElementById('contractAddress').value;
+            if (web3.utils.isAddress(contractAddress)) {
+                const web3 = new Web3('https://bsc-dataseed.binance.org/');
+                const balance = await web3.eth.getBalance(contractAddress);
+                const balanceInEther = web3.utils.fromWei(balance, 'ether');
+                document.getElementById('balance').innerText = `Balance: ${balanceInEther} BNB`;
+            } else {
+                alert("Invalid contract address");
+            }
+        }
+    </script>
+</body>
+</html>
